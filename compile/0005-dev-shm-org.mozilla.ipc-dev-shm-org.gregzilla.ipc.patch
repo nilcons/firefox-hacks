@@ -1,0 +1,25 @@
+From 049c91a4dc4eabbc8422a66552c2c8a574b01f80 Mon Sep 17 00:00:00 2001
+From: Gergely Risko <errge@nilcons.com>
+Date: Sun, 23 Dec 2018 14:04:54 +0100
+Subject: [PATCH 5/5] /dev/shm/org.mozilla.ipc => /dev/shm/org.gregzilla.ipc
+
+---
+ ipc/chromium/src/base/shared_memory_posix.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ipc/chromium/src/base/shared_memory_posix.cc b/ipc/chromium/src/base/shared_memory_posix.cc
+index 2e022636bd83..ad7d272d8d21 100644
+--- a/ipc/chromium/src/base/shared_memory_posix.cc
++++ b/ipc/chromium/src/base/shared_memory_posix.cc
+@@ -72,7 +72,7 @@ bool SharedMemory::AppendPosixShmPrefix(std::string* str, pid_t pid)
+ #endif // OS_LINUX
+   // Hopefully the "implementation defined" name length limit is long
+   // enough for this.
+-  StringAppendF(str, "org.mozilla.ipc.%d.", static_cast<int>(pid));
++  StringAppendF(str, "org.gregzilla.ipc.%d.", static_cast<int>(pid));
+   return true;
+ #endif // !ANDROID && !SHM_ANON
+ }
+-- 
+2.20.1
+

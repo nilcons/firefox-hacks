@@ -1,0 +1,32 @@
+From c964b769daf3d011d8659f176e03f3c110cfa923 Mon Sep 17 00:00:00 2001
+From: Gergely Risko <errge@nilcons.com>
+Date: Sun, 23 Dec 2018 11:24:37 +0100
+Subject: [PATCH 2/5] Remap ctrl-t to BrowserHome({ button: 1 })
+
+This is equivalent to clicking the Home button on the toolbar with the
+middle mouse button.  This opens a new tab AND loads the home URL, so
+the user can set up any home URL via settings, no need to hardcode
+Hoplax into the build.
+
+Also, this puts the focus into Hoplax, so it's just perfect for us.
+---
+ browser/base/content/browser-sets.inc | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/browser/base/content/browser-sets.inc b/browser/base/content/browser-sets.inc
+index c86c7ebc54b2..fa8c117b2351 100644
+--- a/browser/base/content/browser-sets.inc
++++ b/browser/base/content/browser-sets.inc
+@@ -117,8 +117,7 @@
+          key="&newNavigatorCmd.key;"
+          command="cmd_newNavigator"
+          modifiers="accel" reserved="true"/>
+-    <key id="key_newNavigatorTab" key="&tabCmd.commandkey;" modifiers="accel"
+-         command="cmd_newNavigatorTabNoEvent" reserved="true"/>
++    <key id="key_newNavigatorTab" key="&tabCmd.commandkey;" modifiers="accel" oncommand="BrowserHome({ button: 1 });" reserved="true"/>
+     <key id="focusURLBar" key="&openCmd.commandkey;" command="Browser:OpenLocation"
+          modifiers="accel"/>
+ #ifndef XP_MACOSX
+-- 
+2.20.1
+

@@ -1,0 +1,67 @@
+From 9fd167f76d72b5d44259512bdc38987cb6cc5537 Mon Sep 17 00:00:00 2001
+From: Gergely Risko <errge@nilcons.com>
+Date: Sat, 22 Dec 2018 21:33:07 +0100
+Subject: [PATCH 1/5] Move ~/.mozilla => ~/.gregzilla
+
+One also needs ac_add_options --with-user-appdir=.gregzilla
+---
+ media/webrtc/trunk/webrtc/base/proxydetect.cc | 2 +-
+ toolkit/xre/nsXREDirProvider.cpp              | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/media/webrtc/trunk/webrtc/base/proxydetect.cc b/media/webrtc/trunk/webrtc/base/proxydetect.cc
+index 83596b56699e..529d72b94db7 100644
+--- a/media/webrtc/trunk/webrtc/base/proxydetect.cc
++++ b/media/webrtc/trunk/webrtc/base/proxydetect.cc
+@@ -404,7 +404,7 @@ bool GetFirefoxProfilePath(Pathname* path) {
+     return false;
+   }
+   path->SetFolder(std::string(user_home));
+-  path->AppendFolder(".mozilla");
++  path->AppendFolder(".gregzilla");
+   path->AppendFolder("firefox");
+ #endif  // WEBRTC_WIN
+   return true;
+diff --git a/toolkit/xre/nsXREDirProvider.cpp b/toolkit/xre/nsXREDirProvider.cpp
+index 62da8de9b0c2..27b279b4cfe7 100644
+--- a/toolkit/xre/nsXREDirProvider.cpp
++++ b/toolkit/xre/nsXREDirProvider.cpp
+@@ -424,7 +424,7 @@ nsXREDirProvider::GetFile(const char* aProperty, bool* aPersistent,
+ #if defined(XP_MACOSX)
+       rv = localDir->AppendNative(NS_LITERAL_CSTRING("Mozilla"));
+ #else
+-      rv = localDir->AppendNative(NS_LITERAL_CSTRING(".mozilla"));
++      rv = localDir->AppendNative(NS_LITERAL_CSTRING(".gregzilla"));
+ #endif
+     }
+     if (NS_SUCCEEDED(rv)) {
+@@ -1744,7 +1744,7 @@ nsXREDirProvider::AppendSysUserExtensionPath(nsIFile* aFile)
+ 
+ #elif defined(XP_UNIX)
+ 
+-  static const char* const sXR = ".mozilla";
++  static const char* const sXR = ".gregzilla";
+   rv = aFile->AppendNative(nsDependentCString(sXR));
+   NS_ENSURE_SUCCESS(rv, rv);
+ 
+@@ -1777,7 +1777,7 @@ nsXREDirProvider::AppendSysUserExtensionsDevPath(nsIFile* aFile)
+ 
+ #elif defined(XP_UNIX)
+ 
+-  static const char* const sXR = ".mozilla";
++  static const char* const sXR = ".gregzilla";
+   rv = aFile->AppendNative(nsDependentCString(sXR));
+   NS_ENSURE_SUCCESS(rv, rv);
+ 
+@@ -1866,7 +1866,7 @@ nsXREDirProvider::AppendProfilePath(nsIFile* aFile, bool aLocal)
+   }
+   else {
+     if (!vendor.IsEmpty()) {
+-      folder.Append(vendor);
++      folder.Append("gregzilla");
+       ToLowerCase(folder);
+ 
+       rv = aFile->AppendNative(folder);
+-- 
+2.20.1
+

@@ -1,0 +1,25 @@
+From d67865b362a722237b9635cfb540f9583aae8ad4 Mon Sep 17 00:00:00 2001
+From: Gergely Risko <errge@nilcons.com>
+Date: Sun, 23 Dec 2018 12:48:02 +0100
+Subject: [PATCH 3/5] Add ctrl+alt+{p,n} shortcuts for previous,next tab
+
+---
+ browser/base/content/browser-sets.inc | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/browser/base/content/browser-sets.inc b/browser/base/content/browser-sets.inc
+index fa8c117b2351..267179eb3f10 100644
+--- a/browser/base/content/browser-sets.inc
++++ b/browser/base/content/browser-sets.inc
+@@ -118,6 +118,8 @@
+          command="cmd_newNavigator"
+          modifiers="accel" reserved="true"/>
+     <key id="key_newNavigatorTab" key="&tabCmd.commandkey;" modifiers="accel" oncommand="BrowserHome({ button: 1 });" reserved="true"/>
++    <key id="gregzilla_prevTab" key="p" modifiers="accel,alt" oncommand="gBrowser.tabContainer.advanceSelectedTab(-1, true);" reserved="true"/>
++    <key id="gregzilla_prevTab" key="n" modifiers="accel,alt" oncommand="gBrowser.tabContainer.advanceSelectedTab(1, true);" reserved="true"/>
+     <key id="focusURLBar" key="&openCmd.commandkey;" command="Browser:OpenLocation"
+          modifiers="accel"/>
+ #ifndef XP_MACOSX
+-- 
+2.20.1
+

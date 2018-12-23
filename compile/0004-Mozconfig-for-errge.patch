@@ -1,0 +1,61 @@
+From 0c6a8ce4f21e826a08832d4d10f20ff56060b01e Mon Sep 17 00:00:00 2001
+From: Gergely Risko <errge@nilcons.com>
+Date: Sun, 23 Dec 2018 12:50:11 +0100
+Subject: [PATCH 4/5] Mozconfig for errge
+
+---
+ mozconfig | 42 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
+ create mode 100644 mozconfig
+
+diff --git a/mozconfig b/mozconfig
+new file mode 100644
+index 000000000000..ba5122a9a404
+--- /dev/null
++++ b/mozconfig
+@@ -0,0 +1,42 @@
++mk_add_options MOZ_MAKE_FLAGS=-j6
++ac_add_options --with-ccache=/usr/bin/ccache
++
++ac_add_options --enable-optimize
++ac_add_options --disable-debug
++ac_add_options --disable-tests
++ac_add_options --enable-strip
++# ac_add_options --enable-profile-guided-optimization
++
++export MOZILLA_OFFICIAL=1
++mk_add_options MOZ_CO_PROJECT=browser
++ac_add_options --enable-application=browser
++ac_add_options --enable-official-branding
++ac_add_options --enable-startup-notification
++
++ac_add_options --prefix=/opt/firefox
++ac_add_options --with-user-appdir=.gregzilla
++
++ac_add_options --disable-gconf
++ac_add_options --disable-negotiateauth
++ac_add_options --disable-dbus
++ac_add_options --disable-necko-wifi
++ac_add_options --disable-updater
++ac_add_options --disable-accessibility
++ac_add_options --disable-crashreporter
++ac_add_options --disable-parental-controls
++# 2018-12-21: For some reason startupcache disabling doesn't work
++# ac_add_options --disable-zipwriter
++# ac_add_options --disable-startupcache
++
++# Useful during development, for faster build times
++# ac_add_options --with-system-nss
++# ac_add_options --with-system-jpeg
++# # ac_add_options --with-system-png # debian libpng doesn't have apng support
++# ac_add_options --with-system-zlib
++# ac_add_options --with-system-bz2
++# ac_add_options --with-system-nspr
++# ac_add_options --with-system-libevent
++# ac_add_options --with-system-libvpx
++# ac_add_options --with-system-icu
++# ac_add_options --enable-system-sqlite
++# ac_add_options --enable-system-pixman
+-- 
+2.20.1
+
