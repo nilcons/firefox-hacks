@@ -96,6 +96,12 @@ might be beneficial, but I haven't tried to set it up.
 If you do a `git clean -dfx` during development to get a clean
 recompile, don't forget to put back the `mozconfig` file after!
 
+# Take care of your cgroups
+
+If you don't have proper resource isolation set up, the build can
+severly slow down your desktop.  If you need help with this, I have
+another post about cgroups: https://github.com/nilcons/cgroup-infos
+
 # Building
 
 Use `./mach build`, no need to configure or anything like that.
