@@ -1,3 +1,44 @@
+# Update (2020-01-04): still using this with minor tweaks
+
+This is my updated `patch-the-fox` script, that is working with Firefox 72.0.1:
+```shell
+#!/bin/bash
+
+set -e
+
+tempdir=$(mktemp -d)
+mkdir "$tempdir/extract"
+cd "$tempdir/extract"
+set +e
+unzip /usr/lib/firefox/browser/omni.ja
+if [ "$?" -ne 0 ]; then
+  echo >&2 "Unexpected exit code from unzip"
+  exit 1
+fi
+set -e
+patch -p1 <<EOF
+--- /usr/lib/firefox/browser/x/chrome/browser/content/browser/browser.xhtml	2010-01-01 00:00:00.000000000 +0100
++++ ./chrome/browser/content/browser/browser.xhtml	2018-12-23 16:17:02.344249674 +0100
+@@ -262,8 +262,9 @@
+          key="&newNavigatorCmd.key;"
+          command="cmd_newNavigator"
+          modifiers="accel" reserved="true"/>
+-    <key id="key_newNavigatorTab" key="&tabCmd.commandkey;" modifiers="accel"
+-         command="cmd_newNavigatorTabNoEvent" reserved="true"/>
++    <key id="key_newNavigatorTab" key="&tabCmd.commandkey;" modifiers="accel" oncommand="BrowserHome({ button: 1 });" reserved="true"/>
++    <key id="gregzilla_prevTab" key="p" modifiers="accel,alt" oncommand="gBrowser.tabContainer.advanceSelectedTab(-1, true);" reserved="true"/>
++    <key id="gregzilla_prevTab" key="n" modifiers="accel,alt" oncommand="gBrowser.tabContainer.advanceSelectedTab(1, true);" reserved="true"/>
+     <key id="focusURLBar" key="&openCmd.commandkey;" command="Browser:OpenLocation"
+          modifiers="accel"/>
+     <key id="focusURLBar2" key="&urlbar.accesskey;" command="Browser:OpenLocation"
+EOF
+zip -qr9XD ../omni.ja *
+sudo bash -c "cp /usr/lib/firefox/browser/omni.ja /usr/lib/firefox/browser/omni.ja.orig ; cat $tempdir/omni.ja >/usr/lib/firefox/browser/omni.ja"
+find ~/.cache/mozilla/firefox -type d -name startupCache | xargs rm -rf
+cd /
+rm -r "$tempdir"
+```
+
 # State of the web browsers (XMas of 2018)
 
 So, naturally, I start with a rant.
